@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 
 export const EmployeeList = () => {
     const [employees, changeEmployee] = useState([])
+    const [specialties, listSpecialties] = useState("")
 
     useEffect(
         () => {
@@ -14,7 +15,11 @@ export const EmployeeList = () => {
         []
     )
 
-    useEffect(() => {
+    useEffect(
+        () => {
+            const employeeSpecialties = employees.map(emp => emp.specialty)
+            listSpecialties(employeeSpecialties.join(", "))
+
         /*
             1. Use .map() to get the specialty of each employee
             2. Then update a state variable to be a comma-separated string
@@ -25,7 +30,7 @@ export const EmployeeList = () => {
     return (
         <>
             <div>
-                Specialties:
+                Specialties: {specialties}
             </div>
             {
                 employees.map(
