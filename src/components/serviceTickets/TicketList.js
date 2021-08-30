@@ -21,7 +21,14 @@ export const TicketList = () => {
     useEffect(() => {
         const activeTicketCount = tickets.filter(t => t.dateCompleted === "").length
         setActive(`There are ${activeTicketCount} open tickets.`)
-    }, [tickets]) 
+    }, [tickets])
+    
+    const deleteTicket = (id) => {
+        fetch(`http://localhost:8088/serviceTickets/${id}`, {
+            method: "DELETE"
+        })
+        .then(setState())
+    }
 
     return (
         <>
@@ -36,6 +43,9 @@ export const TicketList = () => {
                             <p className={ticket.emergency ? "emergency" : "ticket"}>
                                 {ticket.emergency ? "🚑" : ""} <Link to={`/tickets/${ticket.id}`}>{ticket.description}</Link> submitted by {ticket.customer.name} and worked on by {ticket.employee.name}
                             </p>
+                            <button onClick={() => {
+                                deleteTicket(ticket.id)
+                            }}>Delete</button>
 
                         </div>
                     }
