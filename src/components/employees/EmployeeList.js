@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { getAllEmployees } from "../ApiManager"
 
 export const EmployeeList = () => {
     const [employees, changeEmployee] = useState([])
@@ -9,8 +10,7 @@ export const EmployeeList = () => {
 
     useEffect(
         () => {
-            fetch("http://localhost:8088/employees")
-                .then(res => res.json())
+            getAllEmployees()
                 .then((data) => {
                     changeEmployee(data)
                 })
